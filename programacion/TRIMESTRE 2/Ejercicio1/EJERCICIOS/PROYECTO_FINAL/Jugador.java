@@ -3,13 +3,13 @@ package PROYECTO_FINAL;
 public class Jugador extends PersonaLiga implements Entrenable{
 	
 	private Rol rol;
-	private double nivelMecanico;
-	private double nivelEstrategico;
+	private int nivelMecanico;
+	private int nivelEstrategico;
 	private int partidasJugadas;
 	private int mvpsTotales;
 	private boolean sancionado;
 	
-	public Jugador(int id, String nombre, String nickname, int edad, double salarioBase, Rol rol, double nivelMecanico, double nivelEstrategico, int partidasJugadas, int mvpsTotales, boolean sancionado) {
+	public Jugador(int id, String nombre, String nickname, int edad, double salarioBase, Rol rol, int nivelMecanico, int nivelEstrategico, int partidasJugadas, int mvpsTotales, boolean sancionado) {
 		
 		super(id, nombre, nickname, edad, salarioBase);
 		this.rol=rol;
@@ -24,11 +24,11 @@ public class Jugador extends PersonaLiga implements Entrenable{
 		return this.rol;
 	}
 	
-	public double getNivelMecanico() {
+	public int getNivelMecanico() {
 		return this.nivelMecanico;
 	}
 	
-	public double getNivelEstrategico() {
+	public int getNivelEstrategico() {
 		return this.nivelEstrategico;
 	}
 	
@@ -48,11 +48,11 @@ public class Jugador extends PersonaLiga implements Entrenable{
 		this.rol=rol;
 	}
 	
-	public void setNivelMecanico(double nivelMecanico) {
+	public void setNivelMecanico(int nivelMecanico) {
 		this.nivelMecanico=nivelMecanico;
 	}
 	
-	public void setNivelEstrategico(double nivelEstrategico) {
+	public void setNivelEstrategico(int nivelEstrategico) {
 		this.nivelEstrategico=nivelEstrategico;
 	}
 	

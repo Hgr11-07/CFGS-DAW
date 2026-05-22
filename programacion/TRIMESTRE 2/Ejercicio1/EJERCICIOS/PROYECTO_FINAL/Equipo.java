@@ -146,11 +146,7 @@ public class Equipo implements Comparable<Equipo>{
 	public void promoverSuplente(Jugador j, int posicion) throws TitularInvalidoException, SuplenteInvalidoException {
 		
 		boolean quitado=false;
-		quitado=suplentes.remove(j);
-		
-		if(!quitado) {
-			throw new SuplenteInvalidoException("Este jugador no está en los suplentes.");
-		}
+	
 		if(posicion>4||posicion<0) {
 			throw new TitularInvalidoException("Introduzca una posición correcta (1-5).");
 
@@ -158,6 +154,13 @@ public class Equipo implements Comparable<Equipo>{
 		if(titulares[posicion]!=null) {
 			throw new TitularInvalidoException("Ya hay un jugador en esa posición.");
 		}
+		
+		quitado=suplentes.remove(j);
+		
+		if(!quitado) {
+			throw new SuplenteInvalidoException("Este jugador no está en los suplentes.");
+		}
+		
 		for(int i=0; i<titulares.length; i++) {
 			if(titulares[i]!=null&&titulares[i].equals(j)) {
 					throw new TitularInvalidoException("Este jugador ya es titular.");
@@ -227,10 +230,54 @@ public class Equipo implements Comparable<Equipo>{
 		return "Equipo: "+nombre+ " | Ciudad: " +ciudad+ " | Entrenador: " +entrenador+ " | Presupuesto: " +presupuesto+ " | Victorias: " +victorias+ " | Derrotas: " +derrotas+ " | Puntos a Favor: " +puntosFavor+ " | Puntos En Contra: " +puntosContra;
 	}
 
+	/**
+	 * Valida que el equipo puede disputar un partido:
+	 *  - Exactamente 5 titulares (ninguna posición vacía)
+	 *  - Ningún titular sancionado
+	 *  - No hay dos titulares con el mismo rol
+	 * Si alguna condición falla lanza ConvocatoriaInvalidaException.
+	 */
+	public void validarConvocatoria() throws ConvocatoriaInvalidaException {
+
+		// 1. Los 5 huecos deben estar ocupados
+		for(int i = 0; i < titulares.length; i++) {
+			if(titulares[i] == null) {
+				throw new ConvocatoriaInvalidaException(
+					"El equipo " + nombre + " no tiene 5 titulares (posición " + (i+1) + " vacía).");
+			}
+		}
+
+		// 2. Ningún titular puede estar sancionado
+		for(int i = 0; i < titulares.length; i++) {
+			if(titulares[i].getSancionado()) {
+				throw new ConvocatoriaInvalidaException(
+					"El jugador " + titulares[i].getNickname() + " del equipo " + nombre + " está sancionado.");
+			}
+		}
+
+		// 3. No puede haber dos titulares con el mismo rol (doble comprobación defensiva)
+		for(int i = 0; i < titulares.length; i++) {
+			for(int j = i + 1; j < titulares.length; j++) {
+				if(titulares[i].getRol().equals(titulares[j].getRol())) {
+					throw new ConvocatoriaInvalidaException(
+						"El equipo " + nombre + " tiene dos titulares con el rol " + titulares[i].getRol() + ".");
+				}
+			}
+		}
+	}
+
 	@Override
 	public int compareTo(Equipo e) {
-		
-		return 0;
+		// 1. Por victorias descendente
+		if(this.victorias != e.victorias)
+			return e.victorias - this.victorias;
+		// 2. Por diferencia de puntos descendente
+		int difThis = this.puntosFavor - this.puntosContra;
+		int difOtro = e.puntosFavor - e.puntosContra;
+		if(difThis != difOtro)
+			return difOtro - difThis;
+		// 3. Por nombre alfabético ascendente
+		return this.nombre.compareTo(e.nombre);
 	}
 	
 }
