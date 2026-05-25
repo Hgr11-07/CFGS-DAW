@@ -9,7 +9,7 @@ CREATE OR REPLACE TRIGGER marcarEjemplarDeteriorado AFTER UPDATE ON alquila
 FOR EACH ROW
 BEGIN
     IF NEW.fecha_entrega IS NOT NULL AND OLD.fecha_entrega IS NULL THEN
-        IF (NEW.fecha_entrega - OLD.fecha_recogida) > 7 THEN
+        IF (NEW.fecha_entrega - OLD.fecha_recogida) > 7 THEN -- si la fecha de entrega es más de 7 días después de la fecha de recogida, consideramos que el ejemplar se ha deteriorado por el retraso en la entrega
             UPDATE ejemplar SET estado = 'Deteriorado' WHERE id_ejemplar = NEW.id_ejemplar;
         END IF;
     END IF;
@@ -101,7 +101,7 @@ DELIMITER ;
 CALL proveedorEliminarPeliculas(1);
 SELECT * FROM pelicula WHERE id_proveedor = 1;
 
--- 3.Definición de 2 procedimientos almacenados que utilicen cursores que recorran cierta cantidad de datos, realizando operaciones sobre una o más tablas, haciendo una gestión adecuada de los errores (mediante mensajes).
+-- 3. Definición de 2 procedimientos almacenados que utilicen cursores que recorran cierta cantidad de datos, realizando operaciones sobre una o más tablas, haciendo una gestión adecuada de los errores (mediante mensajes).
 
 SELECT * FROM ejemplar; -- para verificar el estado de los ejemplares antes del procedimiento
 
@@ -137,7 +137,7 @@ SELECT * FROM cliente; -- para verificar los clientes antes del procedimiento
 SELECT * FROM alquila; -- para verificar los alquileres antes del procedimiento
 
 DELIMITER //
-CREATE OR REPLACE PROCEDURE eliminarClientesInactivos(IN fechaLimite DATE)
+CREATE OR REPLACE PROCEDURE eliminarClientesInactivos(IN fechaLimite DATE) -- procedimiento que elimina clientes inactivos, es decir, aquellos que no han alquilado nada en el último año a partir de una fecha límite dada, utilizando un cursor para recorrer los clientes y verificando su actividad en la tabla alquila, eliminando los registros correspondientes en ambas tablas cliente y alquila si se determina que el client es inactivo, y contando el número de clientes eliminados para mostrar un mensaje al finalizar el proceso
 BEGIN
     DECLARE fin INT DEFAULT 0;
     DECLARE idCliente INT;
@@ -150,7 +150,7 @@ BEGIN
         IF fin = 1 THEN
             LEAVE bucle;
         END IF;
-        IF (fechaLimite - (SELECT MAX(fecha_recogida) FROM alquila WHERE id_cliente = idCliente)) > 365 THEN -- si el cliente no ha alquilado nada en el último año
+        IF (fechaLimite - (SELECT MAX(fecha_recogida) FROM alquila WHERE id_cliente = idCliente)) > 365 THEN -- si la fecha límite menos la última fecha de recogida del cliente es mayor a 365 días, consideramos al cliente inactivo, porque no ha alquilado nada en el último año
             DELETE FROM alquila WHERE id_cliente = idCliente;
             DELETE FROM cliente WHERE id_cliente = idCliente;
             SET numEliminados = numEliminados + 1;
@@ -193,15 +193,15 @@ BEGIN
             LEAVE bucle;
         END IF;
         SET titulo = SUBSTRING(titulo, 1, 20); -- recortamos el título a 20 caracteres para que quede uniforme
-        IF fechaEnt IS NOT NULL THEN
-            SET linea = CONCAT('- ', titulo, ' | recogida: ', fechaRec, ' | entregada: ', fechaEnt);
+        IF fechaEnt IS NOT NULL THEN -- si la película ha sido entregada, mostramos la fecha de entrega, si no, indicamos que está en curso
+            SET linea = CONCAT('- ', titulo, ' | recogida: ', fechaRec, ' | entregada: ', fechaEnt); -- formateamos la línea del historial con el título, fecha de recogida y fecha de entrega
         ELSE
-            SET linea = CONCAT('- ', titulo, ' | recogida: ', fechaRec, ' | en curso');
+            SET linea = CONCAT('- ', titulo, ' | recogida: ', fechaRec, ' | en curso'); -- formateamos la línea del historial indicando que el alquiler está en curso si no se ha registrado una fecha de entrega
         END IF;
         SET historial = CONCAT(historial, linea, '\n'); -- añadimos la línea al historial con un salto de línea
     END LOOP;
     CLOSE cur;
-    IF historial = '' THEN
+    IF historial = '' THEN -- si el cliente no tiene alquileres registrados, devolvemos un mensaje indicando que no hay historial disponible
         RETURN 'El cliente no tiene alquileres registrados.';
     END IF;
     RETURN historial;
@@ -214,7 +214,7 @@ SELECT historialAlquileresCliente(6); -- cliente con alquiler en curso
 -- FUNCION PARA OBTENER EL NOMBRE DEL PROVEEDOR DE UNA PELÍCULA DADA SU TÍTULO
 
 DELIMITER //
-CREATE OR REPLACE FUNCTION obtenerProveedorPelicula(tituloBuscado VARCHAR(255)) RETURNS VARCHAR(255)
+CREATE OR REPLACE FUNCTION obtenerProveedorPelicula(tituloBuscado VARCHAR(255)) RETURNS VARCHAR(255) -- función que devuelve el nombre del proveedor de una película dada su título, realizando un JOIN entre las tablas película y proveedor para obtener el nombre del proveedor asociado a la película con el título especificado, y manejando el caso en que no se proporcione un título o no se encuentre la película
 BEGIN
     DECLARE nombreProv VARCHAR(255);
     IF tituloBuscado IS NULL THEN
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS dashboard (
 
 -- Función 1: obtener el total de alquileres de un cliente
 DELIMITER //
-CREATE OR REPLACE FUNCTION totalAlquileresCliente(idCl INT) RETURNS INT
+CREATE OR REPLACE FUNCTION totalAlquileresCliente(idCl INT) RETURNS INT --función que devuelve el total de alquileres realizados por un cliente dado su ID, contando el número de registros en la tabla alquila asociados a ese cliente
 BEGIN
     DECLARE total INT;
     SELECT COUNT(*) INTO total FROM alquila WHERE id_cliente = idCl;
@@ -255,7 +255,7 @@ DELIMITER ;
 
 -- Función 2: obtener la película más alquilada
 DELIMITER //
-CREATE OR REPLACE FUNCTION peliculaMasAlquilada() RETURNS VARCHAR(200)
+CREATE OR REPLACE FUNCTION peliculaMasAlquilada() RETURNS VARCHAR(200) -- funcion que devuelve el título de la película más alquilada mediante un JOIN entre las tablas alquila, ejemplar y pelicula, agrupando por título y ordenando por el número de alquileres en orden descendente, limitando el resultado a 1 para obtener solo la película más alquilada
 BEGIN
     DECLARE titulo VARCHAR(200);
     SELECT p.titulo INTO titulo FROM alquila a INNER JOIN ejemplar e ON a.id_ejemplar = e.id_ejemplar INNER JOIN pelicula p ON e.id_pelicula = p.id_pelicula GROUP BY p.titulo ORDER BY COUNT(*) DESC LIMIT 1;
@@ -265,26 +265,26 @@ DELIMITER ;
 
 -- Procedimiento: genera el informe llamando a las funciones y rellena el dashboard
 DELIMITER //
-CREATE OR REPLACE PROCEDURE generarInforme()
+CREATE OR REPLACE PROCEDURE generarInforme() -- procedimiento que genera un informe estadístico de la base de datos, recopilando información como el total de clientes, películas, alquileres, la película más alquilada y el cliente más activo, e insertando estos datos en la tabla dashboard para su posterior consulta
 BEGIN
-    DECLARE numClientes INT;
-    DECLARE numPeliculas INT;
-    DECLARE numAlquileres INT;
-    DECLARE pelMasAlquilada VARCHAR(200);
-    DECLARE clienteMasActivo VARCHAR(100);
-    DECLARE idClienteActivo INT;
+    DECLARE numClientes INT; --para almacenar el total de clientes
+    DECLARE numPeliculas INT; --para almacenar el total de películas
+    DECLARE numAlquileres INT; --para almacenar el total de alquileres
+    DECLARE pelMasAlquilada VARCHAR(200); --para almacenar el título de la película más alquilada
+    DECLARE clienteMasActivo VARCHAR(100); --para almacenar el nombre del cliente más activo
+    DECLARE idClienteActivo INT; --para almacenar el ID del cliente más activo
 
-    SELECT COUNT(*) INTO numClientes FROM cliente;
-    SELECT COUNT(*) INTO numPeliculas FROM pelicula;
-    SELECT COUNT(*) INTO numAlquileres FROM alquila;
-    SELECT id_cliente INTO idClienteActivo FROM alquila GROUP BY id_cliente ORDER BY COUNT(*) DESC LIMIT 1;
-    SELECT nombre INTO clienteMasActivo FROM cliente WHERE id_cliente = idClienteActivo;
-    SET pelMasAlquilada = peliculaMasAlquilada();
+    SELECT COUNT(*) INTO numClientes FROM cliente; -- para obtener el total de clientes registrados en la base de datos
+    SELECT COUNT(*) INTO numPeliculas FROM pelicula; -- para obtener el total de películas disponibles en la base de datos
+    SELECT COUNT(*) INTO numAlquileres FROM alquila; -- para obtener el total de alquileres realizados en la base de datos
+    SELECT id_cliente INTO idClienteActivo FROM alquila GROUP BY id_cliente ORDER BY COUNT(*) DESC LIMIT 1; -- para obtener el ID del cliente más activo (con más alquileres)
+    SELECT nombre INTO clienteMasActivo FROM cliente WHERE id_cliente = idClienteActivo; -- para obtener el nombre del cliente más activo a partir de su ID
+    SET pelMasAlquilada = peliculaMasAlquilada(); -- para obtener el título de la película más alquilada llamando a la función correspondiente
 
-    INSERT INTO dashboard (fecha_informe, total_clientes, total_peliculas, total_alquileres, pelicula_mas_alquilada, cliente_mas_activo) VALUES (NOW(), numClientes, numPeliculas, numAlquileres, pelMasAlquilada, clienteMasActivo);
+    INSERT INTO dashboard (fecha_informe, total_clientes, total_peliculas, total_alquileres, pelicula_mas_alquilada, cliente_mas_activo) VALUES (NOW(), numClientes, numPeliculas, numAlquileres, pelMasAlquilada, clienteMasActivo); -- para insertar el informe generado en la tabla dashboard
 
-    SELECT * FROM dashboard ORDER BY fecha_informe DESC LIMIT 1;
-    SELECT CONCAT('El cliente más activo es ', clienteMasActivo, ' con ', totalAlquileresCliente(idClienteActivo), ' alquileres.') AS resumen_cliente;
+    SELECT * FROM dashboard ORDER BY fecha_informe DESC LIMIT 1; -- para mostrar el informe recién generado, ordenando por fecha de informe en orden descendente y limitando a 1 para mostrar solo el último informe
+    SELECT CONCAT('El cliente más activo es ', clienteMasActivo, ' con ', totalAlquileresCliente(idClienteActivo), ' alquileres.') AS resumen_cliente; -- para mostrar un resumen adicional con el nombre del cliente más activo y el total de alquileres que ha realizado, llamando a la función totalAlquileresCliente con el ID del cliente más activo
 END //
 DELIMITER ;
 
