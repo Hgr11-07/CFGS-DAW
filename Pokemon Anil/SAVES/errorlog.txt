@@ -1,0 +1,26 @@
+
+=================
+
+[2025-11-16 13:57:58 +0100]
+[Pokémon Essentials versión 21.1]
+[v21.1 Hotfixes 1.0.9]
+[Polemon Añil: Definitive Edition, versión 1.0.22]
+[LA BASE DE SKY versión 1.2.0]
+Error de script en el evento 3 (coordenadas 35,22), en el mapa 85 (Guarida Rocket)
+Excepción: ArgumentError
+Mensaje: Argumento no válido pasado al método.
+Se esperaba que #<Pokemon::Move> fuera uno de [Symbol, GameData::Move, String], pero se obtuvo Pokemon::Move.
+
+***Script completo:
+TrainerBattle.start(:ROCKETA, "Salma", 1)
+Rastro de la traza:
+Validation:29:in `validate'
+GameData:100:in `get'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 001_Main.rb:465:in `block in random_moveset'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 001_Main.rb:454:in `times'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 001_Main.rb:454:in `random_moveset'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 006_Trainers.rb:123:in `randomize_trainer_pokemon_moveset'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 006_Trainers.rb:80:in `process_trainer_pokemon'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 006_Trainers.rb:52:in `block in pbLoadTrainer'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 006_Trainers.rb:51:in `map!'
+[Random Pokemon & Moves + Randomizer EX (Abilities)] 006_Trainers.rb:51:in `with_index'
