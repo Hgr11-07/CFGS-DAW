@@ -369,3 +369,50 @@ END //
 DELIMITER ;
 CALL proveedorEliminarPeliculas(1);
 select * from pelicula where id_proveedor = 1; -- para verificar que se han eliminado las películas del proveedor 1
+
+
+-- 1.Definición de 2 disparadores/triggers sobre operaciones asociadas al modelo de datos.
+
+SELECT * FROM director; -- para verificar los directores antes de ejecutar el trigger
+SELECT * FROM trabajador; -- para verificar los trabajadores antes de ejecutar el trigger
+
+DELIMITER //
+CREATE OR REPLACE TRIGGER directormayorSalario AFTER UPDATE ON trabajador FOR EACH ROW
+BEGIN
+    IF NEW.salario > 3000 THEN
+        alter TABLE director ADD COLUMN IF NOT EXISTS rango VARCHAR(50); -- agregamos una columna para almacenar el rango salarial del director
+        UPDATE director SET rango = 'Director de alto salario' WHERE id_director = NEW.id_trabajador;
+    END IF;
+    IF NEW.salario <= 3000 THEN
+        UPDATE director SET rango = 'Director de bajo salario' WHERE id_director = NEW.id_trabajador;
+    END IF;
+    IF NEW.salario IS NULL THEN
+        UPDATE director SET rango = 'Director sin salario definido' WHERE id_director = NEW.id_trabajador;
+    END IF;
+END //
+DELIMITER ;
+
+UPDATE trabajador SET salario = 3200 WHERE id_trabajador = 1; -- para verificar que el trigger actualiza el rango del director con ID 1
+SELECT * FROM director WHERE id_director = 1; -- para verificar el cambio en el rango del director con ID 1
+SELECT * FROM trabajador WHERE id_trabajador = 1; -- para verificar el salario del trabajador con ID 1 después de la actualización
+
+
+SELECT * FROM pelicula; -- para verificar las películas antes de ejecutar el trigger
+SELECT * FROM pertenece; -- para verificar las categorías antes de ejecutar el trigger
+DELIMITER //
+CREATE OR REPLACE TRIGGER insertarCategoriasNuevaPelicula AFTER INSERT ON pelicula FOR EACH ROW
+BEGIN
+    CASE
+        WHEN NEW.genero = 'Ciencia Ficción' THEN
+            INSERT INTO pertenece (id_pelicula, id_categoria) VALUES (NEW.id_pelicula, (SELECT id_categoria FROM categoria WHERE nombre = 'Ciencia Ficción'));
+        WHEN NEW.genero = 'Drama' THEN
+            INSERT INTO pertenece (id_pelicula, id_categoria) VALUES (NEW.id_pelicula, (SELECT id_categoria FROM categoria WHERE nombre = 'Drama'));
+        WHEN NEW.genero = 'Terror' THEN
+            INSERT INTO pertenece (id_pelicula, id_categoria) VALUES (NEW.id_pelicula, (SELECT id_categoria FROM categoria WHERE nombre = 'Terror'));
+    END CASE;
+END //
+DELIMITER ;
+
+INSERT INTO pelicula (titulo, año_lanzamiento, genero, clasificacion, id_proveedor, director) VALUES ('Interstellar', 2014, 'Ciencia Ficción', 'PG-13', 1, 1); -- para verificar que el trigger inserta la categoría correspondiente a la nueva película
+SELECT * FROM pertenece WHERE id_pelicula = (SELECT id_pelicula FROM pelicula WHERE titulo = 'Interstellar'); -- para verificar que se ha insertado la categoría correcta para la película 'Interstellar'
+SELECT * FROM pelicula WHERE titulo = 'Interstellar'; -- para verificar la nueva película insertada
