@@ -6,13 +6,21 @@
   <h1 id="titulo">Modificando el código HTML</h1>
   <p id="prueba">Modificando el contenido.</p>
   <!-- Al hacer clic, document.getElementById localiza el nodo y cambia su texto interno -->
-  <button type="button" onclick="document.getElementById('prueba').innerHTML = 'CAMBIANDO el contenido!'">
+  <button type="button" onclick="cambiarContenido('¡CAMBIANDO el contenido!', 'prueba')">
     ¡Dale!
   </button>
-  <button type="button" onclick="document.getElementById('prueba').innerHTML = 'Contenido cambiado!'; document.getElementById('titulo').innerHTML = 'RENOVANDO el título!'; console.log('¡Consola cambiada!')">
+  <button type="button" onclick="cambiarContenido('¡CONTENIDO cambiado!', 'prueba'); 
+  cambiarContenido('¡Título cambiado!', 'titulo'); 
+  consoleLog('¡Consola cambiada!')">
     ¡Dale otra vez!
   </button>
   <script>
+    function cambiarContenido(mensaje, contenido) {
+      document.getElementById(contenido).innerHTML = mensaje;
+    }
+    function consoleLog(mensaje) {
+      console.log(mensaje);
+    }
   </script>
 </body>
 </html>

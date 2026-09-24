@@ -9,24 +9,23 @@
   <p id="saludo">Pulsa un botón para ver el saludo.</p>
 
 
-  <button type="button" onclick="
-    document.getElementById('saludo').innerHTML = 'Привет!';
-    document.getElementById('saludo').style.color = 'crimson';">
+  <button type="button" onclick="cambiarSaludo('Привет!', 'crimson');">
     Ruso
   </button>
 
 
-  <button type="button" onclick="
-    document.getElementById('saludo').innerHTML = '¡Hola!';
-    document.getElementById('saludo').style.color = 'darkorange';">
+  <button type="button" onclick="cambiarSaludo('¡Hola!', 'green');">
     Español
   </button>
 
 
-  <button type="button" onclick="
-    document.getElementById('saludo').innerHTML = 'Hello!';
-    document.getElementById('saludo').style.color = 'royalblue';">
-    Inglés
+  <button type="button" onclick="cambiarSaludo('Hello!', 'royalblue');">Inglés
   </button>
 </body>
+<script>
+  function cambiarSaludo(saludo, color) {
+    document.getElementById('saludo').innerHTML = saludo;
+    document.getElementById('saludo').style.color = color;
+  }
+</script>
 </html>

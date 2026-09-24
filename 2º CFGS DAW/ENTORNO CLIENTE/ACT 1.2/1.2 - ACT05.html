@@ -8,16 +8,21 @@
   <h1>Elige un idioma</h1>
   <p>Abre la consola del desarrollador (F12) y pulsa un botón.</p>
 
-  <button type="button" onclick="console.log('%cПривет!', 'color: crimson; font-size: 16px')">
+  <button type="button" onclick="mensajeConsola('Привет!')">
     Ruso
   </button>
 
-  <button type="button" onclick="console.log('%c¡Hola!', 'color: darkorange; font-size: 16px')">
+  <button type="button" onclick="mensajeConsola('¡Hola!')">
     Español
   </button>
 
-  <button type="button" onclick="console.log('%cHello!', 'color: royalblue; font-size: 16px')">
+  <button type="button" onclick="mensajeConsola('Hello!')">
     Inglés
   </button>
 </body>
+<script>
+  function mensajeConsola(mensaje){
+    console.log(mensaje);
+  }
+</script>
 </html>
