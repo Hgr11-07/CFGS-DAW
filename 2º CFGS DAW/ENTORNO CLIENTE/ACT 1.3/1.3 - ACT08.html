@@ -46,14 +46,16 @@
 </body>
 
 <script>
-  function mostrarRespuesta(id, esVerdadero) {
+
+  const mostrarRespuesta = (id, esVerdadero) => {
     const p = document.getElementById(id);
     if (esVerdadero) {
       p.style.color = 'green';
     } else {
       p.style.color = 'red';
     }
-  }
+  };
+
 </script>
 
 </html>

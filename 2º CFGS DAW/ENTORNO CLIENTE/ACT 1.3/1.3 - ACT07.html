@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel de control</title>
+  </head>
+  <body>
+    <h1>Panel de control</h1>
+    <p id="Estado">Sistema en espera</p>
+
+    <button onclick="mostrarHora()">Consola</button>
+
+    <button onclick="cambiarEstado()">Estilo</button>
+
+    <button onclick="mostrarAlerta()">Alerta</button>
+  </body>
+  <script>
+    const mostrarHora = () => {
+      console.log("Hora del sistema: " + new Date().toLocaleTimeString());
+    };
+
+    const cambiarEstado = () => {
+      document.getElementById("Estado").innerHTML = "Sistema Activo";
+      document.getElementById("Estado").style.backgroundColor = "green";
+    };
+
+    const mostrarAlerta = () => {
+      alert("Sistema en espera");
+    };
+  </script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Saludos</title>
+</head>
+<body>
+  <h1>Elige un idioma</h1>
+  <p id="saludo">Pulsa un botón para ver el saludo.</p>
+
+
+  <button type="button" onclick="cambiarSaludo('Привет!', 'crimson');">
+    Ruso
+  </button>
+
+
+  <button type="button" onclick="cambiarSaludo('¡Hola!', 'green');">
+    Español
+  </button>
+
+
+  <button type="button" onclick="cambiarSaludo('Hello!', 'royalblue');">Inglés
+  </button>
+</body>
+<script>
+  const cambiarSaludo = (saludo, color) => {
+    document.getElementById('saludo').innerHTML = saludo;
+    document.getElementById('saludo').style.color = color;
+  };
+</script>
+</html>

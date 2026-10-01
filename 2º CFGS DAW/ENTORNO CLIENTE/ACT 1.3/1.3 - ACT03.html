@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1 id="titulo">Modificando el código HTML</h1>
+  <p id="prueba">Modificando el contenido.</p>
+
+  <button type="button" onclick="ponerAlerta('¡CAMBIANDO el contenido!')">
+    ¡Dale!
+  </button>
+
+  <button type="button" onclick="ponerAlerta('¡Contenido cambiado!'); ponerAlerta('¡RENOVANDO el título!'); ponerConsola('¡Consola cambiada!')">
+    ¡Dale otra vez!
+  </button>
+</body>
+<script>
+  const ponerAlerta = (mensaje) => {
+    alert(mensaje);
+  };
+  const ponerConsola = (mensaje) => {
+    console.log(mensaje);
+  };
+</script>
+</html>

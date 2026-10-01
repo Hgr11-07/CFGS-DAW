@@ -8,10 +8,26 @@
   <h1>Panel de control</h1>
   <p id="Estado">Sistema en espera</p>
 
-  <button onclick="console.log('Hora del sistema: ' + new Date().toLocaleTimeString())">Consola</button>
+  <button onclick="mostrarHora()">Consola</button>
 
-  <button onclick="document.getElementById('Estado').innerHTML = 'Sistema Activo'; document.getElementById('Estado').style.backgroundColor = 'green'">Estilo</button>
+  <button onclick="cambiarEstado()">Estilo</button>
 
-  <button onclick="window.alert('El proceso ha concluido')">Alerta</button>
+  <button onclick="mostrarAlerta()">Alerta</button>
 </body>
+<script>
+  function mostrarHora(){
+    console.log('Hora del sistema: ' + new Date().toLocaleTimeString());
+  }
+
+  function cambiarEstado(){
+    document.getElementById('Estado').innerHTML = 'Sistema Activo';
+    document.getElementById('Estado').style.backgroundColor = 'green';
+  }
+
+  function mostrarAlerta(){
+    window.alert('El proceso ha concluido');
+  }
+</script>
+
+
 </html>

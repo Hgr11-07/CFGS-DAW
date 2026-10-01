@@ -1,0 +1,21 @@
+<!-- PRIMER EJERCICIO  -->
+
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Modificando el código HTML</h1>
+  <p id="prueba">Modificando el contenido.</p>
+  <!-- Al hacer clic, document.getElementById localiza el nodo y cambia su texto interno -->
+  <button type="button" onclick="cambiarContenido('¡Primer Cambio!')">
+    ¡Dale!
+  </button>
+  <button type="button" onclick="cambiarContenido('¡Segundo Cambio!')">
+    ¡Dale otra vez!
+  </button>
+</body>
+<script>
+  const cambiarContenido = (nuevoTexto) => {
+    document.getElementById("prueba").innerHTML = nuevoTexto;
+  };
+</script>
+</html>
