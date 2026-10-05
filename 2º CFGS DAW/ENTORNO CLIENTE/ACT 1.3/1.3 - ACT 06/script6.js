@@ -1,6 +1,6 @@
 const escribirDocumentoEntero = (mensaje) => {
   document.open();
-  document.write(`<!DOCTYPE html>
+  Document.write(`<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
