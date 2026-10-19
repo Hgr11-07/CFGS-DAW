@@ -60,8 +60,8 @@
             $frase = "This is a test";
             echo "La frase es: {$frase}<br>";
             echo "Queremos contar la cantidad de 't' que hay en la frase.<br>";
-            $contador = substr_count(strtolower($frase), "t");
-            echo "La cantidad de 't' en la frase es: {$contador}";
+            $contar = substr_count(strtolower($frase), "t");
+            echo "La cantidad de 't' en la frase es: {$contar}";
           ?>
         </div>
 
