@@ -1,117 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Deportes del mundo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f8e9;
-            color: #263238;
-            margin: 0;
-        }
+      body {
+        background-color: #f1f8e9;
+      }
 
-        header {
-            background-color: #2e7d32;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+      header {
+        background-color: #a5d6a7;
+      }
 
-        nav {
-            background-color: #1b5e20;
-            text-align: center;
-            padding: 10px;
-        }
+      nav {
+        background-color: #c8e6c9;
+      }
 
-        nav a {
-            color: white;
-            margin: 0 15px;
-        }
+      h2 {
+        color: #2e7d32;
+      }
 
-        main {
-            margin: 20px;
-        }
-
-        h2 {
-            color: #2e7d32;
-            text-align: left;
-        }
-
-        aside {
-            background-color: #fff3e0;
-            text-align: right;
-            margin: 20px;
-            padding: 10px;
-        }
-
-        footer {
-            background-color: #1b5e20;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
+      footer {
+        background-color: #a5d6a7;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <svg width="40" height="40">
-            <circle cx="20" cy="20" r="18" fill="orange" />
-        </svg>
-        <h1>Los deportes del mundo</h1>
+      <svg width="40" height="40">
+        <circle cx="20" cy="20" r="18" fill="orange" />
+      </svg>
+      <h1>Los deportes del mundo</h1>
     </header>
 
     <nav>
-        <a href="index.html">Inicio</a>
-        <a href="practicados.html">Más practicados</a>
-        <a href="aficionados.html">Más aficionados</a>
+      <a href="index.html">Inicio</a>
+      <a href="practicados.html">Más practicados</a>
+      <a href="aficionados.html">Más aficionados</a>
     </nav>
 
     <main>
-        <section>
-            <article>
-                <h2>Bienvenido</h2>
-                <p>Esta web explica cuáles son los deportes más practicados del mundo y cuáles tienen más aficionados. Usa el menú de arriba para visitar cada página.</p>
-            </article>
-        </section>
+      <section>
+        <article>
+          <h2>Bienvenido</h2>
+          <p>
+            Esta web explica cuáles son los deportes más practicados del mundo y
+            cuáles tienen más aficionados. Usa el menú de arriba para visitar
+            cada página.
+          </p>
+        </article>
+      </section>
 
-        <section>
-            <article>
-                <h2>Un estadio famoso</h2>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.023472322467!2d-3.691428774470414!3d40.452617453454984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228e23705d39f%3A0xa8fff6d26e2b1988!2sEstadio%20Santiago%20Bernab%C3%A9u!5e0!3m2!1ses!2ses!4v1792494425127!5m2!1ses!2ses"
-                    width="400"
-                    height="300"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
-            </article>
-        </section>
+      <section>
+        <article>
+          <h2>Un estadio famoso</h2>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.023472322467!2d-3.691428774470414!3d40.452617453454984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228e23705d39f%3A0xa8fff6d26e2b1988!2sEstadio%20Santiago%20Bernab%C3%A9u!5e0!3m2!1ses!2ses!4v1792494425127!5m2!1ses!2ses"
+            width="400"
+            height="300"
+            style="border: 1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </article>
+      </section>
 
-        <section>
-            <article>
-                <h2>Lienzo (canvas)</h2>
-                <canvas id="miCanvas" width="200" height="100"></canvas>
-            </article>
-        </section>
+      <section>
+        <article>
+          <h2>Lienzo (canvas)</h2>
+          <canvas id="miCanvas" width="200" height="100"></canvas>
+        </article>
+      </section>
     </main>
 
     <aside>
-        <h3>¿Sabías que...?</h3>
-        <p>El deporte más practicado y el más seguido del mundo coinciden: el fútbol.</p>
+      <h3>¿Sabías que...?</h3>
+      <p>
+        El deporte más practicado y el más seguido del mundo coinciden: el
+        fútbol.
+      </p>
     </aside>
 
     <footer>
-        <address>Contacto: deportes@gmail.com</address>
+      <address>Contacto: deportes@gmail.com</address>
     </footer>
 
     <script>
-        var lienzo = document.getElementById("miCanvas");
-        var pincel = lienzo.getContext("2d");
-        pincel.fillStyle = "green";
-        pincel.fillRect(20, 20, 160, 60);
+      var lienzo = document.getElementById("miCanvas");
+      var pincel = lienzo.getContext("2d");
+      pincel.fillStyle = "green";
+      pincel.fillRect(20, 20, 160, 60);
     </script>
-</body>
+  </body>
 </html>
