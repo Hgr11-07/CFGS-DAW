@@ -38,36 +38,48 @@ function calcularMatricula(datos) {
 
 // Batería de pruebas: Comprobación de equivalencia funcional
 console.assert(
-    calcularMatricula(null).valido === false && 
+  calcularMatricula(null).valido === false &&
     calcularMatricula(null).error === "Parámetros de matrícula inválidos.",
-    "Fallo en Test 1: Manejo de entrada null"
+  "Fallo en Test 1: Manejo de entrada null",
 );
 
 console.assert(
-    calcularMatricula({ precioBase: -20, tipoEstudiante: "general" }).valido === false &&
-    calcularMatricula({ precioBase: -20, tipoEstudiante: "general" }).error === "El precio base debe ser un número positivo.",
-    "Fallo en Test 2: Precio base negativo o cero"
+  calcularMatricula({ precioBase: -20, tipoEstudiante: "general" }).valido ===
+    false &&
+    calcularMatricula({ precioBase: -20, tipoEstudiante: "general" }).error ===
+      "El precio base debe ser un número positivo.",
+  "Fallo en Test 2: Precio base negativo o cero",
 );
 
 console.assert(
-    calcularMatricula({ precioBase: 100, tipoEstudiante: "extranjero" }).valido === false &&
-    calcularMatricula({ precioBase: 100, tipoEstudiante: "extranjero" }).error === "Tipo de estudiante no reconocido.",
-    "Fallo en Test 3: Tipo de estudiante desconocido"
+  calcularMatricula({ precioBase: 100, tipoEstudiante: "extranjero" })
+    .valido === false &&
+    calcularMatricula({ precioBase: 100, tipoEstudiante: "extranjero" })
+      .error === "Tipo de estudiante no reconocido.",
+  "Fallo en Test 3: Tipo de estudiante desconocido",
 );
 
 console.assert(
-    calcularMatricula({ precioBase: 100, tipoEstudiante: "desempleado", codigoDescuento: "WEB2026" }).total === 60,
-    "Fallo en Test 4: Descuento desempleado (30%) + cupón (-10 €)"
+  calcularMatricula({
+    precioBase: 100,
+    tipoEstudiante: "desempleado",
+    codigoDescuento: "WEB2026",
+  }).total === 60,
+  "Fallo en Test 4: Descuento desempleado (30%) + cupón (-10 €)",
 );
 
 console.assert(
-    calcularMatricula({ precioBase: 100, tipoEstudiante: "socio" }).total === 85,
-    "Fallo en Test 5: Descuento socio (15%) sin cupón"
+  calcularMatricula({ precioBase: 100, tipoEstudiante: "socio" }).total === 85,
+  "Fallo en Test 5: Descuento socio (15%) sin cupón",
 );
 
 console.assert(
-    calcularMatricula({ precioBase: 5, tipoEstudiante: "general", codigoDescuento: "WEB2026" }).total === 0,
-    "Fallo en Test 6: Suelo mínimo a cero cuando el cupón excede el precio"
+  calcularMatricula({
+    precioBase: 5,
+    tipoEstudiante: "general",
+    codigoDescuento: "WEB2026",
+  }).total === 0,
+  "Fallo en Test 6: Suelo mínimo a cero cuando el cupón excede el precio",
 );
 
 console.log("¡Todas las pruebas unitarias se ejecutaron con éxito!");

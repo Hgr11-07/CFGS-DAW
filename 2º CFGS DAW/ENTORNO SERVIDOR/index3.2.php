@@ -139,7 +139,17 @@
       <!-- Ejercicio 3 -->
       <div class="tab-pane fade" id="ejercicio3" role="tabpanel" aria-labelledby="ejercicio3-tab">
         <?php
+        $paises = array(
+          "España" => array("Algeciras", "La Línea", "Tarifa"),
+          "Francia" => array("Marseille", "Lyon", "Paris"),
+          "Alemania" => array("Munich", "Dortmund", "Stuttgart"),
+          "Italia" => array("Milan", "Venezia", "Roma"),
+          "Países Bajos" => array("Ámsterdam", "Rótterdam", "Utrecht")
+        );
 
+        foreach ($paises as $pais => $ciudades) {
+          echo "<strong>" . $pais . "</strong>: " . implode(", ", $ciudades) . "<br>";
+        }
         ?>
       </div>
 
@@ -147,13 +157,88 @@
       <div class="tab-pane fade" id="ejercicio4" role="tabpanel" aria-labelledby="ejercicio4-tab">
         <?php
 
+        $array = array("Antonio" => "31", "María" => "28", "Juan" => "29", "Pepe" => "27");
+
+        function mostrar($titulo, $arr)
+        {
+          echo "<strong>$titulo:</strong> ";
+          foreach ($arr as $clave => $valor) {
+            echo "$clave => $valor, ";
+          }
+          echo "<br>";
+        }
+
+        mostrar("Array normal", $array);
+
+        // Orden ascendente por clave
+        $ordenAscKey = $array;
+        ksort($ordenAscKey);
+        mostrar("Ascendente por clave", $ordenAscKey);
+
+        // Orden descendente por clave
+        $ordenDescKey = $array;
+        krsort($ordenDescKey);
+        mostrar("Descendente por clave", $ordenDescKey);
+
+        // Orden ascendente por valor
+        $ordenAscValor = $array;
+        asort($ordenAscValor);
+        mostrar("Ascendente por valor", $ordenAscValor);
+
+        // Orden descendente por valor
+        $ordenDescValor = $array;
+        arsort($ordenDescValor);
+        mostrar("Descendente por valor", $ordenDescValor);
         ?>
       </div>
 
       <!-- Ejercicio 5 -->
       <div class="tab-pane fade" id="ejercicio5" role="tabpanel" aria-labelledby="ejercicio5-tab">
         <?php
+        $array = array(
+          "Italy" => "Rome",
+          "Luxembourg" => "Luxembourg",
+          "Belgium" => "Brussels",
+          "Denmark" => "Copenhagen",
+          "Finland" => "Helsinki",
+          "France" => "Paris",
+          "Slovakia" => "Bratislava",
+          "Slovenia" => "Ljubljana",
+          "Germany" => "Berlin",
+          "Greece" => "Athens",
+          "Ireland" => "Dublin",
+          "Netherlands" => "Amsterdam",
+          "Portugal" => "Lisbon",
+          "Spain" => "Madrid",
+          "Sweden" => "Stockholm",
+          "United Kingdom" => "London",
+          "Cyprus" => "Nicosia",
+          "Lithuania" => "Vilnius",
+          "Czech Republic" => "Prague",
+          "Estonia" => "Tallin",
+          "Hungary" => "Budapest",
+          "Latvia" => "Riga",
+          "Malta" => "Valetta",
+          "Austria" => "Vienna",
+          "Poland" => "Warsaw"
+        );
 
+        function pasarMayuscula($array)
+        {
+          $arrayNuevo = array();
+          foreach ($array as $key => $value) {
+            $arrayNuevo[strtoupper($key)] = strtoupper($value);
+          }
+          return $arrayNuevo;
+        }
+
+        $arrayM = pasarMayuscula($array);
+        $arrayOrdenado = $arrayM;
+        ksort($arrayOrdenado);
+
+        foreach ($arrayOrdenado as $key => $value) {
+          echo "La capital de $key es $value.<br>";
+        }
         ?>
       </div>
 
@@ -161,6 +246,8 @@
       <div class="tab-pane fade" id="ejercicio6" role="tabpanel" aria-labelledby="ejercicio6-tab">
         <?php
 
+        $arrayJSON = json_encode($arrayOrdenado);
+        echo $arrayJSON;
         ?>
 
       </div>

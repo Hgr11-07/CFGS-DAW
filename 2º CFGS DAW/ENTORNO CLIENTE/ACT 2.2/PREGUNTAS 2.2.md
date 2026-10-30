@@ -1,5 +1,5 @@
 4. Da 20
-5. Tasa A: 15 | Tasa B: 0.  Hay que usar la B, porque la A le aplica un descuento de 15$ sin nigún sentido.
+5. Tasa A: 15 | Tasa B: 0.  Hay que usar la B, porque la A le aplica un descuento de 15% sin nigún sentido.
 
 TIPO TEST
 
