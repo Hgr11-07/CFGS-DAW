@@ -1,0 +1,1 @@
+{\"name\": \"html_executor\", \"description\": \"Execute HTML files by opening them in a web browser\", \"tools\": [{\"name\": \"shell\", \"command\": \"start \"\" \"{file}\"\"}]}
