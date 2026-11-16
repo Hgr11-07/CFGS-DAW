@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>validarDNI</title>
+</head>
+<body>
+  <h1>Prueba de validarDNI</h1>
+  <p>Abre la consola con F12 para ver los resultados.</p>
+
+  <script src="comentarios.js"></script>
+  <script>
+    console.log(validarDNI(12345678, "Z"));  // true
+    console.log(validarDNI(12345678, "a"));  // false
+    console.log(validarDNI(12345678, "z"));  // true
+
+    try {
+      validarDNI("hola", "Z");
+    } catch (e) {
+      console.log(e.name + ": " + e.message);  // TypeError
+    }
+
+    try {
+      validarDNI(-5, "Z");
+    } catch (e) {
+      console.log(e.name + ": " + e.message);  // RangeError
+    }
+  </script>
+</body>
+</html>

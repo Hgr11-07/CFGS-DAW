@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Simple</title>
+</head>
+<body>
+    <form id="miFormulario">
+        <label for="precioSinIVA">Precio sin IVA:</label>
+        <input type="text" id="precioSinIVA" name="precioSinIVA" required>
+        <br><br>
+        <label for="porcentajeIVA">Porcentaje de IVA:</label>
+        <input type="number" id="porcentajeIVA" name="porcentajeIVA" value="21" required>
+        <br><br>
+        <input type="submit" value="Enviar">
+    </form>
+    <div id="resultado"></div>
+    <script src="validador.js"></script>
+</body>
+</html>
