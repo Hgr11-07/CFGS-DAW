@@ -1,59 +1,125 @@
-			aside {
-					width: 30%;
-					padding-left: 15px; 
-					margin-left: 15px; 
-					float: right; 
-					font-style: italic;
-					background-color: lightgray;
-					display: inline-block;
-					vertical-align: top; 
-					border: 1px dotted blue;
-					word-wrap: break-word; 
-					position: sticky;
-					top: 0;
-					font-size: 2em
-					}
-			footer {
-					text-align: center;
-					padding: 3px;
-					background-color: DarkSalmon;
-					color: white;
-					font-size: 100px
-					}
-			nav {
-					padding: 1rem; 
-					background-color: grey;
-					border: 3px solid red;
-					position: sticky;
-					font-size: 2cm;
-				}
+aside {
+  width: 30%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  font-style: italic;
+  background-color: lightgray;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px dotted blue;
+  word-wrap: break-word;
+  position: sticky;
+  top: 0;
+  font-size: 2em;
+}
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: DarkSalmon;
+  color: white;
+  font-size: 100px;
+}
+nav {
+  padding: 1rem;
+  background-color: grey;
+  border: 3px solid red;
+  position: sticky;
+  font-size: 2cm;
+}
 
-			article > p { color: red; }
-			.clase1 { color: pink;}	
+article > p {
+  color: red;
+}
+.clase1 {
+  color: pink;
+}
 
-			header + p { color: yellow; }
+header + p {
+  color: yellow;
+}
 
-			* { font-style: italic; }
+* {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
 
-			aside p { color: green;}ç
+aside p {
+  color: green;
+  font-size: clamp(15px, 4vw, 50px);
+}
 
-			header h3 { color: rgb(171, 104, 171); }
+header h3 {
+  color: rgb(171, 104, 171);
+}
 
-			#id1 { color: rgb(255, 174, 0); }
+#id1 {
+  color: rgb(255, 174, 0);
+}
 
-			section > article > p { color: rgb(255, 0, 157); }
+section > article > p {
+  color: rgb(255, 0, 157);
+}
 
-			article h3 { color: brown; font-size: 0.2in}
+article h3 {
+  color: brown;
+  font-size: 0.2in;
+}
 
-			* { font-family: Georgia, 'Times New Roman', Times, serif; }
+footer {
+  padding: 0.8rem;
+  text-align: center;
+  line-height: 10vh;
+}
 
-			footer { padding: 0.8rem; }
+.clase2 {
+  border: 4px solid blue;
+  font-size: 19pt;
+}
 
-			.clase2 { border: 4px solid blue; font-size: 19pt}
+#id2 {
+  margin: 5%;
+  font-size: 10mm;
+}
 
-			#id2 { margin: 5%; font-size: 10mm;}
+body header {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
 
-			body header { font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif }
+.clase3 {
+  font-size: 3pc;
+}
 
-			.clase3 {font-size: 3pc;}
+img {
+  height: 20vh; /* La altura del elemento será el 50% del alto del viewport */
+  width: 50vw; /* El ancho del elemento será el 75% del ancho del viewport */
+}
 
+.container {
+  height: 10vh;
+  background-color: #f0f0f0;
+}
+
+header {
+  margin: 5;
+  padding: 0;
+  height: 80%; /* Asegura que el cuerpo y el html ocupen todo el alto del viewport */
+}
+
+.contenedor {
+  position: relative; /* Establece una posición relativa */
+  height: 100vh; /* Utiliza el 100% del alto del viewport */
+}
